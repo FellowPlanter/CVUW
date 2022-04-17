@@ -47,6 +47,10 @@ rgb_to_grayscale = lib.rgb_to_grayscale
 rgb_to_grayscale.argtypes = [IMAGE]
 rgb_to_grayscale.restype = IMAGE
 
+threshhold = lib.rgb_to_grayscale
+threshhold.argtypes = [IMAGE, c_float]
+threshhold.restype = IMAGE
+
 copy_image = lib.copy_image
 copy_image.argtypes = [IMAGE]
 copy_image.restype = IMAGE
@@ -54,6 +58,10 @@ copy_image.restype = IMAGE
 rgb_to_hsv = lib.rgb_to_hsv
 rgb_to_hsv.argtypes = [IMAGE]
 rgb_to_hsv.restype = None
+
+l1_normalize = lib.l1_normalize
+l1_normalize.argtypes = [IMAGE]
+l1_normalize.restype = None
 
 feature_normalize = lib.feature_normalize
 feature_normalize.argtypes = [IMAGE]

@@ -35,6 +35,7 @@ image copy_image(image im)
 
 image rgb_to_grayscale(image im)
 {
+    if(im.c == 1) return im;
     assert(im.c == 3);
     image gray = make_image(im.w, im.h, 1);
     for(int y=0;y<im.h;++y){
@@ -47,7 +48,16 @@ image rgb_to_grayscale(image im)
     }
     return gray;
 }
-
+image threshhold(image im, float threshhold){
+    image gray = rgb_to_grayscale(im);
+    for(int y=0;y<im.h;++y){
+        for(int x=0;x<im.w;++x){
+            float v = get_pixel(gray,x,y,0);
+            set_pixel(gray, x,y,0,v>threshhold ? 1.0f : 0.0f);
+        }
+    }
+    return gray;
+}
 void shift_image(image im, int c, float v)
 {
     for(int y=0;y<im.h;++y){
@@ -69,9 +79,9 @@ void scale_image(image im, int c, float v)
 
 void clamp_image(image im)
 {
-    for(int y=0;y<im.h;++y){
-        for(int x=0;x<im.w;++x){
-            for(int c=0;c<im.c;++c){
+    for(int c=0;c<im.c;++c){
+        for(int y=0;y<im.h;++y){
+            for(int x=0;x<im.w;++x){
                 float v = get_pixel(im,x,y,c);
                 if(v<0.0) v = 0.0;
                 if(v>1.0) v = 1.0;

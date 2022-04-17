@@ -3,6 +3,7 @@
 *.csv
 *.out
 *.pyc
+*.gch
 .fuse*
 libuwimg*
 uwimg
