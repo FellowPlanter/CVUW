@@ -38,6 +38,7 @@ image make_box_filter(int w)
     return res;
 }
 
+
 image convolve_image(image im, image filter, int preserve)
 {
     assert(filter.c == 1 || filter.c == im.c);
@@ -131,6 +132,25 @@ image make_gaussian_filter(float sigma)
         }
     }
     l1_normalize(res);
+    return res;
+}
+
+image fast_gaussian_blur(image im, float sigma)
+{
+    int dim = (int)ceilf(6*sigma); 
+    dim = dim&1 ? dim : dim+1;
+    image f = make_image(dim,1,1);
+    float m = 2.5f * sigma;
+    for(int x=0;x<f.w;++x){
+        float x1 = f.w/2 - x;
+        float v = expf(-(x1*x1) / (2*sigma*sigma));
+        set_pixel(f,x,0,0,v*m);
+    }
+    l1_normalize(f);
+    image res = convolve_image(im,f,1);
+    f.h = dim;
+    f.w = 1;
+    res = convolve_image(res,f,1);
     return res;
 }
 

@@ -97,6 +97,10 @@ save_image_lib = lib.save_image
 save_image_lib.argtypes = [IMAGE, c_char_p]
 save_image_lib.restype = None
 
+fast_gaussian_blur = lib.fast_gaussian_blur
+fast_gaussian_blur.argtypes = [IMAGE, c_float]
+fast_gaussian_blur.restype = IMAGE
+
 def save_image(im, f):
     return save_image_lib(im, f.encode('ascii'))
 
